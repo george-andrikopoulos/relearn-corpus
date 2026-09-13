@@ -1,0 +1,42 @@
++++
+tag = "R:verdict-survives-the-channel"
+title = "A check's verdict reaches the decision intact, or the check did not run"
+error_class = "A correct check's verdict lost between the check and the decision that depends on it -- a pipeline reporting its last stage's status, a filter cropping the verdict out of the output it summarises, a no-op edit exiting zero -- so a failing gate reads as green and the action it guards proceeds"
+home = { kind = "global" }
+created = "2026-09-03"
+origin = "mined"
+status = { kind = "graduated", to = "hook:gate-verdict-intact (pipeline half) + hook:multiline-pattern-eol (edit half)", date = "2026-09-06" }
+authority = { kind = "local", version = 1 }
+incident = "A verification gate was run roughly fifty times in one session and not once unfiltered: every invocation piped it into a line-limiting filter. One run printed a BLOCKED verdict naming five failing gates and was reported as having exited zero, because a pipeline's status is its last stage's -- and the filter had cropped the verdict line off the top, leaving gate names that read like ordinary progress. Twice the filter sat between the gate and an && , so the step that followed tested the filter rather than the gate and proceeded regardless. The same class ran in the other direction in the same session: substitutions that matched nothing, exited zero, and left an edit believed to have landed unmade."
++++
+
+Read a check's own verdict, never a status that merely travelled beside it.
+
+A gate can be entirely correct and still certify a failure, because the verdict is lost
+between the check and the decision. `gate | tail` exits with the status of `tail`. An
+`&&` placed after such a pipeline tests the filter rather than the gate, so the action it
+was meant to guard runs regardless. And a filter narrow enough to be readable will crop
+the verdict out of the very output it was meant to summarise: the header carrying the
+word FAILED scrolls away, and what remains is a few detail lines that read like ordinary
+progress.
+
+Nothing is forged here and nothing is unenforced -- the check ran, it was right, and its
+answer never arrived. That is what separates this from its two neighbours:
+`R:guarantee-needs-a-reader` fires when no check exists, `R:wired-artifact` when one
+exists and accepts the wrong evidence, and this one when a correct check's answer does
+not survive the trip to the reader.
+
+The same failure runs in the other direction for commands that change things. A
+substitution whose pattern matches nothing, an in-place edit against an absent string, a
+rename with no candidates: every one of them exits zero. An exit code reports that the
+program ran, not that the work happened.
+
+So: run a gate unfiltered and let its own status stand. Where the output must be
+filtered, make the pipeline report the gate -- enable pipefail, or read the first stage's
+status explicitly -- and never place a filter between a gate and an `&&`. After a command
+whose purpose is to change a file, verify the change by reading the file back, not the
+status the command returned.
+
+Failure-mode check: **what does this exit code actually measure?** If the answer names
+the last stage of a pipeline, or names "the program ran" rather than "the work was done",
+there is no evidence yet.
