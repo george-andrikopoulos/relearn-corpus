@@ -1,0 +1,29 @@
+# The scheduled recompute. This is the entire infrastructure of the corpus:
+# reports arrive as pull requests, this runs over them, and the result is
+# committed. No server, no database, no privacy policy — and if it fails it
+# fails as a stale file in a repository rather than as an outage.
+name: aggregate
+
+on:
+  schedule:
+    - cron: "0 3 1 * *"   # monthly, the same grain the reports use
+  workflow_dispatch:
+
+jobs:
+  recompute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      # Pinned to a tag rather than a branch: the aggregate is a published
+      # figure, and it must not change because the tool changed underneath it.
+      - run: cargo install --git https://github.com/george-andrikopoulos/relearn --tag v0.1.0 relearn
+      - name: recompute
+        run: relearn aggregate --clone . --generated "$(date -u +%Y-%m)" --confirm
+      - name: commit if it moved
+        run: |
+          git config user.name  "aggregate"
+          git config user.email "aggregate@users.noreply.github.com"
+          git add aggregate.toml
+          git diff --cached --quiet || git commit -m "chore(aggregate): recompute $(date -u +%Y-%m)"
+          git push
