@@ -1,0 +1,19 @@
++++
+tag = "R:reconcile-wiring-at-start"
+title = "Reconcile declared against active wiring on a schedule the guard cannot break"
+error_class = "A control that is correctly declared but no longer active -- commented out, moved, un-executable, overwritten -- going dark without announcing it, so the system runs unguarded for as long as the interval between whatever happens to notice"
+home = { kind = "global" }
+created = "2026-08-16"
+origin = "mined"
+status = { kind = "active" }
+authority = { kind = "local", version = 1 }
+incident = "Nine write-time hooks went unwired when their settings file was rewritten by an unidentified writer. Nothing announced it. It surfaced roughly eighty minutes later, and only because an unrelated audit happened to run a deployment verifier — edits that should have been blocked went through in the interval. The file was tracked in version control, which is why the condition had to be stated as declared-wiring-differs-from-active rather than as a check on unversioned files: scoped that way, the rule would have excluded the very case that produced it."
++++
+
+The entry condition is **declared is not active**. It is not "the wiring is unversioned". A tracked control goes dark just as quietly as an untracked one: a commented-out entry, a moved path, a lost executable bit. Version control yields a diff, but a diff does not tell you a guard is inert *now*, and nobody diffs a file they have no reason to suspect. Being unversioned is an aggravating factor -- no diff, no revert, no attribution -- never the qualifier.
+
+So check the declared-versus-active gap on a schedule that does not depend on the guard being alive, and report **by name** which control is inert. A count is not actionable and reads as noise; a name is a work item.
+
+**Prove the alarm in the dark state.** An alarm never observed firing is not known to fire. Exercise it against a deliberately broken configuration -- delete the hook block in a temporary home directory and confirm the check names each drifted control. Without that drill the reconciliation becomes an unverified control one level up and the regress simply moves; the drill is what terminates it, which is R:wired-artifact applied to the thing doing the watching.
+
+Ask: *if this control switched itself off, what would tell me, and when?* If the honest answer is "the next audit", the control is off for as long as audits are apart, and that interval is the real guarantee -- not the control.

@@ -1,0 +1,26 @@
++++
+tag = "R:typestate-builder-for-required-fields"
+title = "Builders make a missing required field a compile error"
+error_class = "A builder whose build() is always callable, so omitting a required field is caught at run time -- as an error the caller may swallow, or worse as a silent default -- when the omission was already visible at compile time"
+home = { kind = "domain", name = "rust" }
+created = "2026-08-24"
+origin = "codified"
+status = { kind = "active" }
+authority = { kind = "local", version = 1 }
+incident = "Codified from standing practice rather than mined from a failure. It surfaced in an audit of an emitted instruction artefact against the hand-written pattern list it was supposed to replace: ten practices were stated in that one hand-maintained layer and had no rule in the library, so they reached a single assistant and travelled to no other tool — which is the failure the library exists to prevent, arriving in the library's own contents. The practice: track each required field in a type parameter so an incomplete build is not an error value to handle but a method that does not exist. The alternative returns a result every caller handles identically, until the one caller who defaults it ships something pointing at nothing."
++++
+
+Track each required field in a phantom type parameter, and implement `build()` only for the fully populated combination:
+
+```rust
+pub struct Missing;
+pub struct Present;
+pub struct ServerBuilder<HasHost, HasUser> { /* ... */ }
+impl ServerBuilder<Present, Present> { pub fn build(self) -> Server { /* ... */ } }
+```
+
+An incomplete build is then not an error value to handle but a method that does not exist. Compare the alternative: `build()` returns `Result<_, MissingField>`, every caller writes the same `?`, and the one caller who writes `unwrap_or_default()` ships a server pointing at nothing.
+
+This is R:typestate-for-protocols applied to construction rather than to sequence -- the same remedy, a different illegal thing. Optional fields stay plain setters; only what is genuinely required earns a parameter.
+
+Beyond three or four required fields the parameter list costs more than the problem. Take a required-arguments struct in `new()` instead: the same omission is still a compile error, with none of the machinery.

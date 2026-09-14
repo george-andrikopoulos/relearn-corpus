@@ -1,0 +1,13 @@
++++
+tag = "R:no-weak-model-for-judgment"
+title = "Never route judgment work to a weak model, and never embed a sub-tier local LLM"
+error_class = "Wiring a meaningfully less capable model into a tool for work that needs judgment, on convenience or API-key-free grounds, so the tool is degraded wherever that model runs"
+home = { kind = "global" }
+created = "2026-08-22"
+origin = "codified"
+status = { kind = "active" }
+authority = { kind = "local", version = 1 }
+incident = "Codified rather than mined, and folded in from a standalone note. The practice: a task requiring judgement — reviewing a design, deciding whether two rules contradict, weighing an argument — is not the place to economise on capability, because the failure mode is a confident answer that is wrong in a way nobody checks. It is distinct from choosing a model by measured cost per completed task: that rule governs how to choose, this one governs where the choice must not be made on price at all."
++++
+
+Work that needs judgment goes to a capable model. Do not embed a sub-tier local LLM (a 7B/13B behind Ollama, llama.cpp or similar) in a tool as a convenient, API-key-free fallback: a meaningfully dumber model degrades the tool it is wedged into, everywhere and silently, and the output looks like ordinary tool output rather than like a downgrade. When a tool needs intelligence, delegate to the capable model through the existing subscription -- the MCP server is the abstraction boundary and clients are peers. Note that the cost argument usually offered for the local model is the price-tier fallacy R:measure-cost-per-task names; but this rule is not an economic one and does not dissolve if the sums come out favourably. Mechanical, tool-restricted passes are a different matter and may be scoped tightly; the floor applies to work where the answer is a judgement.

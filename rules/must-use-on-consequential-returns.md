@@ -1,0 +1,17 @@
++++
+tag = "R:must-use-on-consequential-returns"
+title = "Mark consequential return values #[must_use]"
+error_class = "A function whose return value carries the outcome -- a Result, a status, a freshly minted witness -- can be called as a bare statement and its return dropped, so a failure or the whole product of the call disappears with no diagnostic"
+home = { kind = "domain", name = "rust" }
+created = "2026-08-24"
+origin = "codified"
+status = { kind = "active" }
+authority = { kind = "local", version = 1 }
+incident = "Codified from standing practice rather than mined from a failure. It surfaced in an audit of an emitted instruction artefact against the hand-written pattern list it was supposed to replace: ten practices were stated in that one hand-maintained layer and had no rule in the library, so they reached a single assistant and travelled to no other tool — which is the failure the library exists to prevent, arriving in the library's own contents. The practice: mark a consequential return so the compiler flags a discarded outcome at every call site, present and future, instead of leaving it to a reviewer to notice one bare statement among a hundred. Put it on the type where the type is always consequential, because that travels to functions written later by people who never read the rule."
++++
+
+Put `#[must_use]` on every function that returns a `Result`, and on every function whose return value is the point of calling it. The compiler then flags a discarded outcome at every call site, present and future, instead of leaving it to a reviewer to notice one bare statement among a hundred.
+
+Prefer the attribute on the *type* over the attribute on the function. `#[must_use] struct Receipt;` travels to every function that returns a `Receipt`, including the ones written later by someone who never read this rule; the function-level attribute has to be remembered each time. Attach it to the type whenever the type is always consequential, and fall back to the function only for the narrower case where the same type is sometimes worth discarding.
+
+Escalate the resulting warning to an error in CI. A `#[must_use]` whose violation prints a note nobody reads is a comment with extra syntax, and the guarantee it claims is held nowhere.

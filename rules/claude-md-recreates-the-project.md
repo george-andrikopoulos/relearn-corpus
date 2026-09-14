@@ -1,0 +1,19 @@
++++
+tag = "R:claude-md-recreates-the-project"
+title = "The project charter is written to the recreation standard"
+error_class = "A project charter that describes what the code is rather than what would be needed to rebuild it, so the decisions and their reasons live only in the head of whoever made them and are re-litigated or silently reversed by the next reader"
+home = { kind = "global" }
+created = "2026-08-25"
+origin = "codified"
+status = { kind = "active" }
+authority = { kind = "local", version = 1 }
+incident = "Codified from a standing repository discipline rather than mined from a failure. It surfaced in an audit of an emitted instruction pack, which carried no rule about that discipline at all while the type-design half was fully present — so one of the two disciplines the author works by reached every assistant and the other reached none. The practice: the project charter is written so that the project could be rebuilt from it alone — what this is, why the decisions were made, what must never break. A charter that merely orients a reader is one nobody notices has gone stale, because nothing depends on it being true."
++++
+
+Write the project charter so that from it alone the project could be rebuilt. That is the bar, and it is testable: hand the file to someone with the toolchain and nothing else, and ask what they could not reconstruct.
+
+It holds the purpose, the core design decisions **with their reasons**, the invariants that must never break, the commands to build, run and test, and pointers to the other standing documents. The reasons are the part that decays first and matters most: a decision recorded without its why is indistinguishable from an accident, so the next reader either reverses it or preserves it superstitiously, and both are expensive.
+
+Check it explicitly on every change that touches design, as a question rather than a glance: *could this file still recreate the project?* Skipping that check is how the standard becomes a lie -- not in one edit, but in twenty, each individually defensible.
+
+The charter is the project layer and nothing else. Domain rules are referenced from it, never copied into it (R:five-files-no-more), and a claim it makes about an enforcing control is subject to R:guarantee-needs-a-reader like any other.

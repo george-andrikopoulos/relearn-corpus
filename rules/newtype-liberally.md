@@ -1,0 +1,13 @@
++++
+tag = "R:newtype-liberally"
+title = "Newtype liberally: distinct concepts get distinct types"
+error_class = "Passing a bare primitive across a function boundary, so two values the domain treats as different are interchangeable to the compiler and can be swapped silently"
+home = { kind = "domain", name = "rust" }
+created = "2026-08-22"
+origin = "codified"
+status = { kind = "active" }
+authority = { kind = "local", version = 1 }
+incident = "Codified from a standing type-design discipline rather than mined from a failure — deliberate policy, stated in prose in a hand-maintained layer for months before it became a rule that could travel. The practice: every domain concept gets its own type even when the representation is identical, so a unit mix-up cannot be written rather than being caught in review — and the one that is not caught in review is the expensive one. The cost is ordinarily nothing, which is why the exception has its own rule about verifying rather than asserting it."
++++
+
+Give every domain concept its own type, even when the underlying representation is identical. `Miles(f64)` and `Kilometers(f64)`, `Host(String)` and `Port(u16)` -- never two bare `f64`s or a `String` and a `u16` whose order only a human remembers. Newtypes are ordinarily zero-cost: they compile to the same machine code as the primitive, so the only thing they add is the compile error you want -- but where that cost is load-bearing, R:verify-the-abstraction-compiled-away requires the claim to be checked rather than repeated. The unit mix-up that cannot be written is cheaper than the one caught in review, and far cheaper than the one that is not. R:parse-dont-validate is where the newtype comes from -- the boundary mints it as a witness; this rule is about carrying it everywhere afterwards instead of unwrapping back to the primitive.

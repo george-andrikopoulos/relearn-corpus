@@ -1,0 +1,17 @@
++++
+tag = "R:borrow-in-signatures"
+title = "Take a borrow in the signature unless the function needs to own"
+error_class = "A parameter typed String or Vec<T> where the body only reads it, forcing every caller to allocate, or to surrender ownership it still needs and then clone to get it back"
+home = { kind = "domain", name = "rust" }
+created = "2026-08-24"
+origin = "codified"
+status = { kind = "active" }
+authority = { kind = "local", version = 1 }
+incident = "Codified from standing practice rather than mined from a failure. It surfaced in an audit of an emitted instruction artefact against the hand-written pattern list it was supposed to replace: ten practices were stated in that one hand-maintained layer and had no rule in the library, so they reached a single assistant and travelled to no other tool — which is the failure the library exists to prevent, arriving in the library's own contents. The practice: a signature is a statement about what a function needs, and an owned parameter says it will keep the value — so when the body only reads, every caller pays for an allocation to satisfy a claim that is not true. The real cost is that it propagates: callers clone to satisfy it, and their callers clone to satisfy that."
++++
+
+Take `&str` over `String`, `&[T]` over `Vec<T>`, `&Path` over `PathBuf`. A signature is a statement about what the function needs, and an owned parameter says "I will keep this" -- so when the body only reads, the signature is untrue and every caller pays for it in an allocation.
+
+Own the parameter exactly where the function stores it. There, `impl Into<String>` is the courteous form: a caller holding a `String` moves it in for nothing, and a caller holding a `&str` allocates once, knowingly. On the way out, return `&str` rather than `&String` -- the extra indirection buys the caller nothing and pins the field's representation into the public API.
+
+The cost is rarely the single allocation. It is that an owned parameter propagates: the caller clones to satisfy it, its caller clones to satisfy that, and a signature chosen without thought becomes a column of clones that each look locally necessary. R:justify-every-clone is where those clones surface; this rule is how they are never created.

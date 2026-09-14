@@ -1,0 +1,33 @@
++++
+tag = "R:source-practice-from-its-artefact"
+title = "Describe a practice from the artefact that defines it, never from the genre"
+error_class = "Describing the user's own practice, system or process from domain convention or literature instead of the primary artefact that defines it, producing a fluent, plausible description of the wrong thing"
+home = { kind = "global" }
+created = "2026-08-20"
+origin = "mined"
+status = { kind = "active" }
+authority = { kind = "local", version = 1 }
+incident = "A five-thousand-word paper was drafted about somebody's working discipline with its entire spine built on a convention they do not use — assumed from what is common in the field rather than read from what they actually had. The authoritative sources were both available and unread: a skill file specifying the real practice was listed in the session's own inventory, and a project charter stated it again. Describing a practice from its reputation rather than from its artefacts produces a document that is confidently and completely about something else."
++++
+
+Before writing anything that *describes* how the user works -- their process, their file
+layout, their tooling, their organisation, their role -- enumerate the primary artefacts
+that define it, and read them first. The definition of a practice is the artefact that
+embodies it: the skill that specifies it, the repository that implements it, the document
+that governs it. Domain literature and industry convention describe the *genre*, not this
+instance. A description sourced from the genre will be fluent, well-structured, plausible,
+and about somebody else.
+
+Run this check before drafting, not after: **what artefact would prove this description
+wrong, and have I read it?** If the answer names a file that has not been opened, open it.
+If no such artefact exists, the description is an assumption -- ask, and say plainly that
+the question is being asked because nothing available settles it.
+
+Clarifying questions must cover the *subject*, not only the framing. Asking about audience,
+evidence and venue while silently assuming what the thing is produces a well-scoped,
+well-sourced artefact about the wrong topic, and the correction costs a rewrite rather than
+an edit. The cheapest question is the one that establishes what is being described.
+
+This is the reading half of the sibling rule on building: search the existing artefacts
+before constructing something new. That one prevents rebuilding what exists; this one
+prevents *describing* what does not.

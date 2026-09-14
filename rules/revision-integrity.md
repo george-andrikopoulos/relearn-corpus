@@ -1,0 +1,21 @@
++++
+tag = "R:revision-integrity"
+title = "After restructuring, verify references as a distinct pass"
+error_class = "A restructuring edit silently invalidating references that were correct in the previous version -- antecedents, cross-references, counts, enumerations, promises -- with no error raised, and the author least able to see it because they autocomplete the missing text from memory of the draft they deleted"
+home = { kind = "global" }
+created = "2026-08-11"
+origin = "mined"
+status = { kind = "active" }
+authority = { kind = "local", version = 1 }
+incident = "A paper's clause survived a restructure that removed its setup, so a contrast pointed at nothing and read as a non-sequitur. It was caught only by translating the paragraph into another language, which could not be rendered without supplying the missing words. A fresh-reader sweep then found fifteen more of the same kind: a cross-reference to a section that had moved, a count of items that no longer matched the list beneath it, an antecedent whose noun had been renamed. Each was individually invisible to the author, because a writer re-reads what they meant rather than what is there, and every one was produced by an edit that was correct in itself."
++++
+
+Editing a structured artefact silently breaks references that the previous version made true. The edit raises no error, and rereading does not catch it: the author restores the deleted context from memory and reads a coherent passage that is not on the page.
+
+So run referential integrity as a **distinct pass**, after the restructuring and not during it. Every pronoun and comparative -- *this*, *neither*, *the former*, *the more important* -- must resolve within the current text. Every cross-reference must point where it claims. Every announced count must match what follows. Every term must be defined before it is used.
+
+Two methods defeat author blindness where rereading cannot. Give the passage to a fresh reader instructed to report **comprehension failures only**, not content or style -- they have no deleted draft to autocomplete from. Or translate it into another language: if it cannot be rendered without adding words, the words are missing in the original.
+
+Prefer structure that cannot carry the defect. A heading that states a count goes stale on the next addition, so write the heading without the count rather than remembering to update it -- R:prefer-by-construction applied to prose.
+
+This is the prose sibling of R:wired-artifact: a locally correct change with a silent non-local effect. Ask, every time: *what did this edit quietly leave pointing at nothing?*

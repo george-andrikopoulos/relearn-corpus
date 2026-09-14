@@ -102,12 +102,23 @@ for, which is a bias toward the cheap incidents rather than mere sparseness.
 
 ## Status
 
-**Five rules, one contributor, no reports.** The five are a citation closure
-rather than a selection: three were chosen and two more were required because the
-three cite them — publish a subset of a corpus whose rules cite each other and
-every subscriber gets dangling references, which their linter makes fatal. Their
-published incidents were written by hand; the raw quotations never left the
-machine they were recorded on.
+**Forty-five rules, one contributor, no reports.** That is every rule its
+contributor holds that *can* travel: the rest are homed to an organisation or to
+a project, and those never leave a machine in either direction. Each published
+incident was written by hand — the raw ones quote private working sessions and
+name people, repositories, products and paths, and none of that crossed.
+
+**Twenty of the forty-five are `codified`, and have never been observed to fire.**
+That is not a defect in them, and it is the number to read first: a rule written
+down from standing practice has prevented nothing yet that anyone has measured,
+and a corpus made mostly of them would be sharing doctrine rather than
+experience. `relearn lint` prints it beside the recurrence count for that reason.
+
+**One dangling citation survives and cannot be published away.** A rule here
+cites one that is homed to a project, so no corpus can ever carry it. A
+subscriber sees it as a dangling reference, and the default lint threshold makes
+that fatal — run `lint --deny error`, or ask the contributor whether the cited
+rule was ever really project-specific.
 
 **No install has reported a recurrence, and `aggregate.toml` does not exist yet.**
 The floor is five distinct installs and there is one, so there is nothing the
