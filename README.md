@@ -102,17 +102,19 @@ for, which is a bias toward the cheap incidents rather than mere sparseness.
 
 ## Status
 
-**Forty-five rules, one contributor, no reports.** That is every rule its
+**Forty-seven rules, one contributor, no reports.** That is every rule its
 contributor holds that *can* travel: the rest are homed to an organisation or to
 a project, and those never leave a machine in either direction. Each published
 incident was written by hand — the raw ones quote private working sessions and
 name people, repositories, products and paths, and none of that crossed.
 
-**Twenty of the forty-five are `codified`, and have never been observed to fire.**
+**Twenty-two of the forty-seven are `codified`, and have never been observed to fire.**
 That is not a defect in them, and it is the number to read first: a rule written
 down from standing practice has prevented nothing yet that anyone has measured,
 and a corpus made mostly of them would be sharing doctrine rather than
 experience. `relearn lint` prints it beside the recurrence count for that reason.
+
+**Two rules declare an audience.** They are homed to a domain — latency-sensitive work — and name `rust` and `java`, because a rule about what a machine may not be asked to do is needed by engineers in both and belongs to neither language. An install narrowing to some other audience does not receive them; an install that narrows to neither receives everything, which is the safe direction.
 
 **One dangling citation survives and cannot be published away.** A rule here
 cites one that is homed to a project, so no corpus can ever carry it. A
