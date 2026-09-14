@@ -102,6 +102,17 @@ for, which is a bias toward the cheap incidents rather than mere sparseness.
 
 ## Status
 
-**Empty, and honestly so.** No rules have been contributed and no install has
-reported. Publishing the first rules is writing, not running: each one needs its
-published incident authored by the person whose session produced it.
+**Five rules, one contributor, no reports.** The five are a citation closure
+rather than a selection: three were chosen and two more were required because the
+three cite them — publish a subset of a corpus whose rules cite each other and
+every subscriber gets dangling references, which their linter makes fatal. Their
+published incidents were written by hand; the raw quotations never left the
+machine they were recorded on.
+
+**No install has reported a recurrence, and `aggregate.toml` does not exist yet.**
+The floor is five distinct installs and there is one, so there is nothing the
+aggregate could honestly publish. That is the measurement working, not a gap.
+
+Publishing more is writing, not running: each rule needs its published incident
+authored by the person whose session produced it, and that is the real cost of a
+shared corpus.

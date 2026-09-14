@@ -15,9 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      # Pinned to a tag rather than a branch: the aggregate is a published
-      # figure, and it must not change because the tool changed underneath it.
-      - run: cargo install --git https://github.com/george-andrikopoulos/relearn --tag v0.1.0 relearn
+      # Pinned to a COMMIT rather than a branch: the aggregate is a published
+      # figure and must not change because the tool changed underneath it. A
+      # commit rather than a tag because the tool has no tags yet, and a
+      # workflow pinned to a tag that does not exist is a control that cannot
+      # run — it would have failed on its first scheduled attempt, silently,
+      # in a repository nobody was watching. Move this to a tag when one exists.
+      - run: cargo install --git https://github.com/george-andrikopoulos/relearn --rev 1735e60dcf510beb83e28eac30e5eb272d834dc0 relearn
       - name: recompute
         run: relearn aggregate --clone . --generated "$(date -u +%Y-%m)" --confirm
       - name: commit if it moved
